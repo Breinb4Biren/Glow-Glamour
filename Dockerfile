@@ -5,7 +5,8 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # 2. Run the App
-FROM openjdk:17-jdk-slim
+# We are changing this line to use a valid image
+FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
