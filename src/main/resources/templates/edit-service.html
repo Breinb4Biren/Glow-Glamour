@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Service</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body { font-family: sans-serif; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .form-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px; text-align: center; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        input[type="file"] { border: none; background: #f1f1f1; padding: 10px; }
+        button { background-color: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1em; }
+        button:hover { background-color: #0056b3; }
+        h2 { color: #333; margin-bottom: 20px; }
+        .cancel { display: block; margin-top: 15px; color: #666; text-decoration: none; }
+        .current-image { width: 100px; height: 100px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>✏️ Edit Service</h2>
+        
+        <form action="/update-service" method="post" enctype="multipart/form-data">
+            
+            <input type="hidden" name="id" th:value="${service.id}">
+            
+            <div th:if="${service.imageBase64 != null}" style="margin-bottom: 15px;">
+                <p style="font-size: 0.8em; color: #777; margin-bottom: 5px;">Current Image:</p>
+                <img th:src="@{'data:image/jpeg;base64,' + ${service.imageBase64}}" class="current-image">
+            </div>
+
+            <input type="text" name="name" th:value="${service.name}" placeholder="Service Name" required>
+            
+            <textarea name="description" placeholder="Short Description" rows="3" required th:text="${service.description}"></textarea>
+            
+            <input type="number" name="price" th:value="${service.price}" placeholder="Price" step="0.01" required>
+            
+            <label style="display:block; text-align:left; color:#666; font-size:0.9em; margin-top:10px;">Change Image (Optional):</label>
+            
+            <input type="file" name="image" accept="image/*">
+
+            <button type="submit">Update Service</button>
+        </form>
+        
+        <a href="/services" class="cancel">Cancel</a>
+    </div>
+
+</body>
+</html>

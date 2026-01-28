@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Glow & Glamour</div>
+            <div>
+                <a href="/">Home</a>
+                <a href="/services">Services</a>
+                <a href="/contact">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="login-body-wrapper">
+        <div class="login-card">
+            <h1>Glow & Glamour</h1>
+            <p class="subtitle">Welcome Back, Diva!</p>
+
+            <div th:if="${param.error}" class="error-msg">
+                Incorrect username or password.
+            </div>
+
+            <div th:if="${param.logout}" class="success-msg">
+                You have been logged out securely.
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div style="text-align: left; margin-bottom: 15px;">
+                    <label for="username" style="font-weight: bold; font-size: 0.9em; color: #666;">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div style="text-align: left; margin-bottom: 15px;">
+                    <label for="password" style="font-weight: bold; font-size: 0.9em; color: #666;">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit">Sign In</button>
+            </form>
+
+            <div class="register-link">
+                New here? <a href="/register">Create an account</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Mom's Glow & Glamour</h3>
+                <p>Relax, Rejuvenate, and Refresh.<br>
+                We bring out the best version of you.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>📍 Shop 12, Sunrise Avenue</p>
+                <p>📞 +91 98765-43210</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/">Home</a>
+                <a href="/services">Services</a>
+                <a href="/bookings">My Bookings</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Mom's Glow & Glamour. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

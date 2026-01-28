@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Confirmed! - Glow & Glamour</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body { 
+            font-family: sans-serif; 
+            background-color: #f9f9f9; 
+            margin: 0;
+        }
+        
+        /* Special styling just for the receipt */
+        .receipt-card {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto; /* Centers the card */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 8px solid #d87093; /* Brand pink color */
+        }
+        
+        .check-icon {
+            color: #28a745;
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .receipt-details {
+            background-color: #fff0f5; /* Light pink background */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #d87093;
+            padding-bottom: 5px;
+        }
+        
+        /* Remove border from the last item */
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .detail-value {
+            color: #d87093;
+            font-weight: bold;
+        }
+
+        .btn-home {
+            text-decoration: none; 
+            color: white; 
+            background: #d87093; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn-home:hover {
+            background: #c06080;
+        }
+    </style>
+</head>
+<body>
+
+    <nav style="background-color: #d87093; padding: 15px; color: white; display: flex; gap: 20px; align-items: center;">
+        <div style="font-weight: bold; font-size: 1.2em;">Glow & Glamour</div>
+        <a href="/" style="color: white; text-decoration: none; font-weight: 500;">Home</a>
+    </nav>
+
+    <div class="receipt-card">
+        <div class="check-icon">✓</div>
+        
+        <h1 style="color: #333; margin-bottom: 10px; margin-top: 0;">Booking Confirmed!</h1>
+        
+        <p style="color: #666;">Thank you, <span th:text="${clientName}" style="font-weight:bold;">User</span>.</p>
+        <p style="color: #666;">Your appointment has been successfully saved.</p>
+
+        <div class="receipt-details">
+            <div class="detail-row">
+                <span class="detail-label">Service:</span>
+                <span class="detail-value" th:text="${serviceName}">Service Name</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value" th:text="${bookingDate}">Date</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Email:</span>
+                <span class="detail-value" th:text="${clientEmail}">Email</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value" style="color: green;">Confirmed</span>
+            </div>
+        </div>
+
+        <p style="font-size: 0.9em; color: #888;">We look forward to seeing you!</p>
+        
+        <a href="/" class="btn-home">Return Home</a>
+    </div>
+
+</body>
+</html>
