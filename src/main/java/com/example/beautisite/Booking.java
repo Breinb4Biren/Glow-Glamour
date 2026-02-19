@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,16 +24,25 @@ public class Booking {
     
     private String date;
 
+    // ✅ NEW FIELD: Stores "PENDING", "CONFIRMED", or "CANCELLED"
+    private String status = "PENDING";
+
+    // ✅ NEW: This creates the link to the User Account!
+    @ManyToOne 
+    @JoinColumn(name = "user_id") 
+    private User user;
+
     // --- CONSTRUCTORS ---
     public Booking() {
     }
 
     // Updated constructor to include serviceName
-    public Booking(String name, String email, String serviceName, String date) {
+    public Booking(String name, String email, String serviceName, String date, User user) {
         this.name = name;
         this.email = email;
         this.serviceName = serviceName; // ✅ Save it here
         this.date = date;
+        this.user = user;
     }
 
     // --- GETTERS AND SETTERS ---
@@ -75,5 +86,21 @@ public class Booking {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    // ✅ NEW Getters and Setters for Status
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    // ✅ NEW Getters/Setters for User
+    public User getUser() {
+         return user; 
+    }
+    public void setUser(User user){
+        this.user = user; 
     }
 }

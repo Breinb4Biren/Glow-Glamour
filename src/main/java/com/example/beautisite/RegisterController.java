@@ -25,7 +25,8 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String registerUser(@RequestParam String fullName, 
-                               @RequestParam String username, 
+                               @RequestParam String username,
+                               @RequestParam String email,    // ✅ NEW: Capture the email!
                                @RequestParam String password) {
         
         // 1. Check if user already exists
@@ -37,7 +38,7 @@ public class RegisterController {
         String hashedPassword = passwordEncoder.encode(password);
 
         // 3. Create the new User object
-        User newUser = new User(fullName, username, hashedPassword, "USER");
+        User newUser = new User(fullName, username,email, hashedPassword, "USER");
 
         // 4. SAVE IT TO THE DATABASE (The most important part!)
         userRepository.save(newUser);

@@ -40,11 +40,13 @@
             <form action="/submit" method="post">
                 <label style="font-weight: bold; color: #555;">Your Name</label>
                 <input type="text" name="name" 
-                       th:value="${isLoggedIn} ? ${loggedInUser} : ''"
+                       th:value="${userName}"
                        placeholder="e.g. Nilam Prajapati" required>
                 
                 <label style="font-weight: bold; color: #555;">Email Address</label>
-                <input type="email" name="email" placeholder="example@gmail.com" required>
+                <input type="email" name="email" 
+                       th:value="${userEmail}"
+                       placeholder="example@gmail.com" required>
 
                 <label style="font-weight: bold; color: #555;">Service Required</label>
                 <input type="text" name="serviceName" 

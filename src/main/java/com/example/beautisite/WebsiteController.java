@@ -23,6 +23,10 @@ public class WebsiteController {
     @Autowired
     private BeautyServiceRepository serviceRepository;
 
+    // ✅ 1. ADD THIS: Inject User Repository to find user details
+    @Autowired
+    private UserRepository userRepository;
+
     // ✅ NOTE: UPLOAD_DIRECTORY IS GONE! We don't need it anymore.
 
     // ==========================================
@@ -52,10 +56,22 @@ public class WebsiteController {
         return "index";
     }
 
+    // ✅ PASTE THIS NEW BLOCK HERE
     @GetMapping("/contact")
-    public String contact() {
-        return "contact";
-    }
+        public String contact(Model model, Principal principal) {
+            // Check if someone is logged in
+            if (principal != null) {
+                String username = principal.getName();
+     
+                User user = userRepository.findByUsername(username); // Find the user in DB          
+                if (user != null) {
+                    // Send their Name and Email to the HTML
+                    model.addAttribute("userName", user.getFullName());
+                    model.addAttribute("userEmail", user.getEmail());
+                }
+            }
+            return "contact";
+        }
 
     @GetMapping("/services")
     public String services(Model model) {
@@ -143,15 +159,25 @@ public class WebsiteController {
 
     @GetMapping("/bookings")
     public String listBookings(Model model, Principal principal) {
+        
+        // 1. If not logged in, send to login page
         if (principal == null) return "redirect:/login";
 
         String currentUsername = principal.getName();
         List<Booking> bookings;
 
+        // 2. Logic for Admin vs Normal User
         if (currentUsername.equals("admin")) {
+            // Admin sees ALL bookings
             bookings = bookingRepository.findAll();
         } else {
-            bookings = bookingRepository.findByName(currentUsername);
+            // ✅ THIS IS THE FIX!
+            // First, find the logged-in User object (e.g., User ID 6)
+            User currentUser = userRepository.findByUsername(currentUsername);
+            
+            // Then, ask the repo: "Give me bookings linked to THIS User account"
+            // (This ignores the name text and looks at the ID connection)
+            bookings = bookingRepository.findByUser(currentUser);
         }
 
         model.addAttribute("bookings", bookings);
@@ -163,9 +189,14 @@ public class WebsiteController {
                                     @RequestParam String email,
                                     @RequestParam String serviceName,
                                     @RequestParam String date,
+                                    Principal principal,
                                     Model model) {
-        
-        Booking newBooking = new Booking(name, email, serviceName, date);
+                                        
+        User currentUser = null;
+        if (principal != null) {
+            currentUser = userRepository.findByUsername(principal.getName());
+        }
+        Booking newBooking = new Booking(name, email, serviceName, date, currentUser);
         bookingRepository.save(newBooking);
         
         model.addAttribute("clientName", name);
@@ -177,8 +208,15 @@ public class WebsiteController {
     }
 
     @PostMapping("/delete")
-    public String deleteBooking(@RequestParam Long id) {
-        bookingRepository.deleteById(id);
+    public String deleteBooking(@RequestParam Long id, Principal principal) {
+        if(principal == null) return "redirect:/login";
+        Booking booking = bookingRepository.findById(id).orElse(null);
+        String currentUsername = principal.getName(); 
+       // Only allow deletion if user is Admin OR if the booking belongs to the logged-in user
+        if (booking != null && (currentUsername.equals("admin") || 
+            (booking.getUser() != null && booking.getUser().getUsername().equals(currentUsername)))) {
+            bookingRepository.deleteById(id);
+        }
         return "redirect:/bookings";
     }
 }
