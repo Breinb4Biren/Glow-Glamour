@@ -11,4 +11,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     // Keep your old one if you use it, but ADD THIS ONE:
     List<Booking> findByUser(User user);
     List<Booking> findByName(String name);
+
+    // Tells the DB: "Check if an appointment exists on this exact date AND time"
+    boolean existsByDateAndTime(String date, String time);
 }

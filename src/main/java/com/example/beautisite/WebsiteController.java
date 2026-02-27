@@ -189,19 +189,40 @@ public class WebsiteController {
                                     @RequestParam String email,
                                     @RequestParam String serviceName,
                                     @RequestParam String date,
+                                    @RequestParam String time,
                                     Principal principal,
                                     Model model) {
+        
                                         
+        // 🛑 1. DOUBLE BOOKING CHECK
+        if (bookingRepository.existsByDateAndTime(date, time)) {
+            // If the slot is taken, create an error message
+            model.addAttribute("errorMessage", "Sorry! " + time + " on " + date + " is already booked. Please choose another slot.");
+            
+            // Re-populate the user's name/email so the form doesn't go blank
+            // 🌟 THE UPGRADE: 
+            // Send exactly what they typed right back to the form!
+            // This works perfectly for BOTH logged-in users AND guests.
+            model.addAttribute("userName", name); 
+            model.addAttribute("userEmail", email);
+            model.addAttribute("serviceName", serviceName);
+            model.addAttribute("date", date); // Sends the date back
+            model.addAttribute("time", time); // Sends the time back
+            // Fixes the blank service box!
+            // Send them back to the booking form to try again
+            return "contact"; 
+        }                               
         User currentUser = null;
         if (principal != null) {
             currentUser = userRepository.findByUsername(principal.getName());
         }
-        Booking newBooking = new Booking(name, email, serviceName, date, currentUser);
+        Booking newBooking = new Booking(name, email, serviceName, date, time, currentUser);
         bookingRepository.save(newBooking);
         
         model.addAttribute("clientName", name);
         model.addAttribute("serviceName", serviceName);
         model.addAttribute("bookingDate", date);
+        model.addAttribute("bookingTime", time);
         model.addAttribute("clientEmail", email);
         
         return "success";

@@ -1,0 +1,327 @@
+/* ===========================
+   GLOBAL STYLES (Applies to all pages)
+   =========================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff0f3; /* Lavender Blush */
+    color: #4a4a4a;
+
+    /* === STICKY FOOTER RULES === */
+    min-height: 100vh;      /* 1. Force body to take full screen height */
+    display: flex;          /* 2. Enable Flexbox */
+    flex-direction: column; /* 3. Stack elements vertically (Nav -> Content -> Footer) */
+}
+
+/* Navigation */
+nav {
+    background-color: #d87093; /* Pale Violet Red */
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    align-items: center;
+}
+.logo { font-size: 1.5rem; color: white; font-weight: bold; }
+nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 600; }
+nav a:hover { text-decoration: underline; }
+
+/* ===========================
+   LAYOUT & GRID STYLES (UPDATED)
+   =========================== */
+
+/* Standard Container (for Login, Contact, etc.) */
+.container { 
+    max-width: 800px; 
+    margin: 40px auto; 
+    padding: 20px; 
+}
+
+/* Wide Container (NEW: Added for the Services Page) */
+.container-wide {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1 { text-align: center; color: #d87093; }
+
+/* Services Grid (Updated gap) */
+.service-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Increased gap for better spacing */
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Card Styles (Updated for Interactivity) */
+.card {
+    background: white;
+    padding: 0 0 20px 0;
+    border: 1px solid #eee; /* Added subtle border */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 280px; /* Made cards wider (was 200px) */
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease; /* Smooth animation */
+}
+
+/* Hover Effect (The "Pop" effect) */
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #d87093;
+}
+
+.service-img {
+    width: 100%;
+    height: 180px; /* Made images taller */
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.card h2, .card p {
+    padding: 0 10px;
+}
+
+.price-tag {
+    margin-top: 15px;
+    background-color: #d87093;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 150px 20px;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/bridal.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+.hero h1 { color: white; font-size: 3rem; margin-bottom: 10px; }
+
+/* Global Buttons & Inputs */
+.btn {
+    background-color: #4a4a4a;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.btn:hover { background-color: #333; }
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+.form-container { max-width: 400px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.success-msg { background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+
+/* ===========================
+   LOGIN & REGISTER PAGE STYLES (Isolated)
+   =========================== */
+
+/* Wrapper to center the login card without changing the global body */
+.login-body-wrapper {
+    min-height: 70vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* The Login Card Itself */
+.login-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(216, 112, 147, 0.2); /* Soft Pink Shadow */
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    border-top: 6px solid #d87093; /* Matches Theme */
+    margin-bottom: 20px;
+}
+
+/* Typography inside Login Card */
+.login-card h1 {
+    font-family: 'Playfair Display', serif; /* Optional: distinctive font for login */
+    color: #d87093;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.login-card .subtitle {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+/* Specific Input Styling for Login (overrides global slightly) */
+.login-card input {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: #d87093;
+    background-color: white;
+}
+
+/* Login Button */
+.login-card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d87093;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.login-card button:hover {
+    background-color: #c06080;
+}
+
+/* Error & Links */
+.error-msg {
+    background-color: #ffe6e6;
+    color: #d93025;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    border: 1px solid #ffcccc;
+}
+
+.register-link {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+.register-link a {
+    color: #d87093;
+    text-decoration: none;
+    font-weight: bold;
+}
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   FOOTER STYLES
+   =========================== */
+.site-footer {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    padding: 40px 0 20px;
+    
+    /* === NEW STICKY FOOTER RULE === */
+    margin-top: auto;  /* Pushes footer to the bottom if content is short */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    color: #d87093;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+.footer-section a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.footer-section a:hover {
+    color: #d87093;
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #888;
+}
+
+/* ===========================
+   TABLE STYLES (Added for Bookings Page)
+   =========================== */
+table { 
+    width: 80%; 
+    border-collapse: collapse; 
+    margin: 30px auto; 
+    box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+    background-color: white;
+}
+
+th, td { 
+    border: 1px solid #eee; 
+    padding: 12px; 
+    text-align: left; 
+}
+
+th { 
+    background-color: #d87093; /* Matches your Theme Pink */
+    color: white; 
+}
+
+tr:hover { 
+    background-color: #ffe4e1; /* Light pink hover */
+}
+
+.empty-state {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: #777;
+}

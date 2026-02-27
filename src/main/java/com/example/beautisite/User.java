@@ -1,4 +1,5 @@
 package com.example.beautisite;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -16,6 +17,7 @@ public class User {
     // ✅ NEW FIELD: We actully store the email here now!
     private String email; 
     
+    @JsonIgnore
     private String password;
     private String role; 
 
